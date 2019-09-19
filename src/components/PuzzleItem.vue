@@ -13,6 +13,7 @@ import { PuzzleData } from './../siteFuture';
 @Component
 export default class PuzzleItem extends Vue {
   @Prop({ default: 0 }) private index!: number;
+  @Prop({ default: 75 }) private itemWidth!: number;
   @Prop() private item!: PuzzleData;
 
   get complete(): boolean {
@@ -29,9 +30,10 @@ export default class PuzzleItem extends Vue {
   }
 
   get styleObj(): object {
+    const { itemWidth } = this
     const { position, number } = this.item;
-    const left = position[0] * 120 + 'px';
-    const top = (position[1] % 4) * 120 + 'px';
+    const left = position[0] * itemWidth + 'px';
+    const top = (position[1] % 4) * itemWidth + 'px';
     const transitionDelay = number * 0.0667 + 's'
     return { top, left, transitionDelay };
   }
@@ -76,6 +78,8 @@ export default class PuzzleItem extends Vue {
       position: absolute
       cursor: pointer
       @extend %transition
+      @media (max-width: 667px)
+        padding: 6px
     &__content
       width: 100%
       height: 100%

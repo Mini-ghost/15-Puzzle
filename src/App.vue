@@ -4,7 +4,7 @@
     <p class="moves fz-24 fw-bold">{{ moves > 1? 'MOVES' : 'MOVE' }} : {{ moves }}</p>
     <div class="puzzle">
       <PuzzleCover
-        v-if="!play"
+        v-show="!play"
         :complete="complete"
         @play-change="playToggle"
       />
@@ -12,6 +12,7 @@
         <div class="puzzle-group">
           <PuzzleItem
             v-for="(item, id) in puzzle"
+            :itemWidth="itemWidth"
             :item="item"
             :index="id"
             :key="item.number"
@@ -41,6 +42,8 @@ import { PuzzleData } from './siteFuture'
   }
 })
 export default class App extends Vue {
+
+  private width: number = 0
 
   get puzzle(): PuzzleData[] {
     return this.$store.state.puzzle;
@@ -72,6 +75,25 @@ export default class App extends Vue {
     this.$store.commit('RESET_MOVE', 0)
   }
 
+  get itemWidth(): number {
+    const { width } = this
+    if(width > 667){ return ( 500 - 20 ) / 4  }
+    return ( 320 - 12 ) / 4
+  }
+
+  mounted() {
+    this.getWindowWidth()
+    window.addEventListener('resize', this.getWindowWidth)
+  }
+
+  beforeDestory() {
+    window.removeEventListener('resize', this.getWindowWidth)
+  }
+
+  private getWindowWidth(): void {
+    this.width = window.innerWidth
+  }
+
   /**
    * 開始新局
    * 如果是完成的狀態按下 play 就歸零計步器
@@ -79,7 +101,7 @@ export default class App extends Vue {
    * */
   private initePuzzleData(): void {
     this.$store.dispatch('INIT_PUZZLE');
-    if(this.complete) { this.moves = 0 }
+    this.moves = 0
     this.complete = false
   }
 
@@ -155,12 +177,11 @@ button
     &:hover
       color: #fe9800
 
-
 .puzzle
   position: relative
   width: 500px
   height: 500px
-  margin-top: 3rem
+  margin-top: 2.5vw
   margin-right: auto
   margin-left: auto
   box-shadow: 0 0 10px rgba(black, .25)
@@ -168,6 +189,9 @@ button
   overflow: hidden
   animation: slideInUp $sec $sec*2 both
   transition: $sec
+  @media (max-width: 667px)
+    width: 320px
+    height: 320px
   &:hover
     box-shadow: 0 0 20px rgba(black, .25), 0 0 5px rgba(black, .75)
   &-content
@@ -183,6 +207,9 @@ button
     display: flex
     flex-wrap: wrap
     font-size: 2.125rem
+    @media (max-width: 667px)
+      width: calc(100% - 6px)
+      height: calc(100% - 6px)
 
 .fade
   &-enter,

@@ -11,7 +11,7 @@
         class="puzzle-cover__play"
         style="animation: jackInTheBox 0.5s 1.5s both;"
         @click="playToggle"
-        @animationend.once="handleAnimationend"
+        @animationend="handleAnimationend"
       >Play</button>
     </div>
   </transition>
