@@ -29,28 +29,32 @@ const initPuzzle = (num: number): PuzzleData[] => {
 /**
  * 檢查資料是否有解答
  * ary: puzzle 陣列,
- *
  * */
 const checkResolvable = (ary: PuzzleData[]): boolean => {
   /** 16 的序號 */
   const space: number = ary.findIndex(item => item.number === 16)
   /** 16 的列（X軸位置） */
-  const spaceX: number = initMultiArrays(space)[0] % 2
-  /** 逆序列數 */
-  let count: number = 0
+  const spaceX: number = initMultiArrays(space)[0]
   // splice 會動到原本的陣列，所以這裡解構出一個陣列來操作
-  let funAry: PuzzleData[] = [...ary]
-  funAry.splice(space, 1)
-  funAry.forEach((item: PuzzleData, index: number, ary: PuzzleData[]) => {
+  let newAry: PuzzleData[] = [...ary].splice(space, 1)
+  /** 逆序列數 */
+  let count: number = countComputed(newAry)
+  return count % 2 + spaceX % 2 === 0
+}
+
+/** 逆序列累加 */
+const countComputed = (ary: PuzzleData[]): number => {
+  let count: number = 0
+  ary.forEach((item: PuzzleData, index: number, _ary: PuzzleData[]) => {
     const length: number = ary.length
     let _index: number = index + 1
     while (_index < length) {
       // item.number 後面的數字只要有比我小的就加 1
-      if (item.number > ary[_index].number) count++
+      if (item.number > _ary[_index].number) count++
       _index++
     }
   })
-  return count % 2 + spaceX % 2 === 0
+  return count
 }
 
 export default new Vuex.Store({

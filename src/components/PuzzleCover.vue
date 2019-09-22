@@ -41,13 +41,13 @@ $sec: .5s
     @include flexCenter
     @include absFull
     flex-direction: column
-    background-color: rgba(#082342, 0.8)
+    background-color: rgba(#2c383d, 0.8)
     border-radius: 16px
     z-index: 9
     &__completed
       margin: 2rem 0
     &__play
-      color: #00988a
+      color: #41b883
       font-size: rem(72px)
       transition: $sec
       &:hover
@@ -59,6 +59,8 @@ $sec: .5s
       color: #ffff00
       animation: slideInUp $sec both
     &__depiction
-      color: #00988a
+      color: #41b883
+      font-size: 18px
+      letter-spacing: 1.5px
       animation: slideInUp $sec $sec both
 </style>

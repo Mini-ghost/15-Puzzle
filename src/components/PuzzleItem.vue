@@ -86,10 +86,10 @@ export default class PuzzleItem extends Vue {
       display: flex
       justify-content: center
       align-items: center
-      background-color: #6e7999
+      background-color: #41b883
       color: white
       border-radius: 12px
       @extend %transition
       &:hover
-        background-color: #005368
+        background-color: #3e8a68
 </style>

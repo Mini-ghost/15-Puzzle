@@ -1,35 +1,35 @@
 
 @mixin hyperlinkInit
-    text-decoration: none
-    color: inherit
+	text-decoration: none
+	color: inherit
 
 @mixin inputInit
-    background-color: transparent
-    border: none
-    outline: none
-    color: inherit
-    font: inherit
-    cursor: pointer
+	background-color: transparent
+	border: none
+	outline: none
+	color: inherit
+	font: inherit
+	cursor: pointer
 
 @mixin containerInit($mw: 1600px, $w: 95%)
-    max-width: $mw
-    width: $w
-    margin:
-        right: auto
-        left: auto
+	max-width: $mw
+	width: $w
+	margin:
+		right: auto
+		left: auto
 
 @mixin absCenter
-    position: absolute
-    top: 50%
-    left: 50%
-    transform: translate(-50%, -50%)
+	position: absolute
+	top: 50%
+	left: 50%
+	transform: translate(-50%, -50%)
 
 @mixin absFull
-  position: absolute
-  top: 0
-  left: 0
-  bottom: 0
-  right: 0
+	position: absolute
+	top: 0
+	left: 0
+	bottom: 0
+	right: 0
 
 @mixin flexCenter
 	display: flex
@@ -38,13 +38,13 @@
 
 // 矩形
 @mixin size($w: 10px, $h: $w)
-    width: $w
-    height: $h
+	width: $w
+	height: $h
 
 // 圓形
 @mixin circle($r: 10px)
-    +size($r)
-    border-radius: 50%
+	+size($r)
+	border-radius: 50%
 
 // scroll Bar 樣式設定
 @mixin scrollbar($color: orange)

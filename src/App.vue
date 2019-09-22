@@ -77,8 +77,7 @@ export default class App extends Vue {
 
   get itemWidth(): number {
     const { width } = this
-    if(width > 667){ return ( 500 - 20 ) / 4  }
-    return ( 320 - 12 ) / 4
+    return width > 667? 120 : 77
   }
 
   mounted() {
@@ -121,10 +120,7 @@ export default class App extends Vue {
   puzzleDataChange(val: PuzzleData[]): void {
     /** 這裡很麻煩不能直接拿兩個陣列相比，要比每一個值 */
     const complete = val.every(
-      (item: PuzzleData) =>
-        item.value[0] === item.position[0] &&
-        item.value[1] === item.position[1]
-    );
+      (item: PuzzleData) => item.value.join('') === item.position.join(''));
     if( complete ) {
       this.complete = true
       /** 等動畫做完 */
@@ -173,9 +169,9 @@ button
 .reset
   &-item
     position: relative
-    color: #00988a
+    color: #344951
     &:hover
-      color: #fe9800
+      color: #41b883
 
 .puzzle
   position: relative
@@ -198,7 +194,7 @@ button
     padding: 5px
     width: 100%
     height: 100%
-    background-color: #142657
+    background-color: #344951
     @extend %flexCenter
   &-group
     position: relative
