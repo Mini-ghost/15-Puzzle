@@ -35,10 +35,13 @@ const checkResolvable = (ary: PuzzleData[]): boolean => {
   const space: number = ary.findIndex(item => item.number === 16)
   /** 16 的列（X軸位置） */
   const spaceX: number = initMultiArrays(space)[0]
-  // splice 會動到原本的陣列，所以這裡解構出一個陣列來操作
-  let newAry: PuzzleData[] = [...ary].splice(space, 1)
+  /**
+   * 切掉空格，
+   * splice 會動到原本的陣列，所以這裡解構出一個陣列來操作 
+   * */
+  const newAry: PuzzleData[] = [...ary].splice(space, 1)
   /** 逆序列數 */
-  let count: number = countComputed(newAry)
+  const count: number = countComputed(newAry)
   return count % 2 + spaceX % 2 === 0
 }
 
@@ -61,7 +64,7 @@ export default new Vuex.Store({
   state: {
     puzzle: [],
     moves: 0,
-    empty: [3, 3],
+    empty: [0, 0],
     complete: false,
     play: false
   },

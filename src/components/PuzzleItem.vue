@@ -76,7 +76,6 @@ export default class PuzzleItem extends Vue {
       height: 25%
       padding: 10px
       position: absolute
-      cursor: pointer
       @extend %transition
       @media (max-width: 667px)
         padding: 6px
@@ -89,6 +88,7 @@ export default class PuzzleItem extends Vue {
       background-color: #41b883
       color: white
       border-radius: 12px
+      cursor: pointer
       @extend %transition
       &:hover
         background-color: #3e8a68
