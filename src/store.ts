@@ -33,21 +33,25 @@ const initPuzzle = (num: number): PuzzleData[] => {
 const checkResolvable = (ary: PuzzleData[]): boolean => {
   /** 16 的序號 */
   const space: number = ary.findIndex(item => item.number === 16)
-  /** 16 的列（X軸位置） */
-  const spaceX: number = initMultiArrays(space)[0]
+/** 16 的列（X軸位置） */
+  const spaceX: number = initMultiArrays(space)[0] + 1
   /**
    * 切掉空格，
    * splice 會動到原本的陣列，所以這裡解構出一個陣列來操作 
    * */
-  const newAry: PuzzleData[] = [...ary].splice(space, 1)
+  const newAry: PuzzleData[] = ((ary: PuzzleData[]) => {
+    ary.splice(space, 1)
+    return ary
+  })([...ary])
   /** 逆序列數 */
   const count: number = countComputed(newAry)
-  return count % 2 + spaceX % 2 === 0
+  return count % 2 + spaceX % 2 !== 0
 }
 
 /** 逆序列累加 */
 const countComputed = (ary: PuzzleData[]): number => {
-  let count: number = 0
+  console.log(ary)
+  let count: number = 3
   ary.forEach((item: PuzzleData, index: number, _ary: PuzzleData[]) => {
     const length: number = ary.length
     let _index: number = index + 1
@@ -111,15 +115,15 @@ export default new Vuex.Store({
         puzzle.sort(() => (Math.random() > 0.5 ? 1 : -1))
         resolvable = checkResolvable(puzzle)
       }
+      /** 排組亂數後賦予定位 */
+      puzzle.forEach((item, index) => {
+        item.position = initMultiArrays(index)
+      })
       /** 設定空格資料 */
       emptyIndex = puzzle.findIndex(item => item.number === 16)
-      emptyArray = initMultiArrays(emptyIndex)
-      /** 排組亂數後賦予定位 */
+      emptyArray = puzzle[emptyIndex].position
       puzzle.splice(emptyIndex, 1)
-      puzzle.forEach((item, index) => {
-        let id = index < emptyIndex? index : index + 1
-        item.position = initMultiArrays(id)
-      })
+      /** mutations 資料 */
       commit('SAVE_PUZZLE', puzzle)
       commit('SET_EMPTY', emptyArray)
     }
