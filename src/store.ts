@@ -45,7 +45,7 @@ const checkResolvable = (ary: PuzzleData[]): boolean => {
   })([...ary])
   /** 逆序列數 */
   const count: number = countComputed(newAry)
-  return count % 2 + spaceX % 2 === 1
+  return count % 2 + spaceX % 2 !== 0
 }
 
 /** 逆序列累加 */
